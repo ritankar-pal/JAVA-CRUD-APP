@@ -46,7 +46,6 @@ public class StudentDaoImpl implements IStudentDao {
 			}
 			
 		} catch (SQLException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -109,10 +108,44 @@ public class StudentDaoImpl implements IStudentDao {
 	public String updateStudent(Integer sid, String sname, Integer sage, String saddress) {
 		return null;
 	}
+	
+	
+	
 
 	@Override
 	public String deleteStudent(Integer sid) {
-		return null;
+		
+		try {
+			connection = JdbcUtil.getJdbcConnection();
+			String sqlDeleteQuery = "delete from student where id = ?";
+			
+			
+			if(connection != null) {
+				pstm = connection.prepareStatement(sqlDeleteQuery);
+			}
+			
+			if(pstm != null) {
+				
+				//setting the values::
+				pstm.setInt(1, sid);
+				
+				//Executing the query::
+				int rowAffected = pstm.executeUpdate();
+				
+				if(rowAffected == 1) {
+					return "Success";
+				}
+				else {
+					return "record not found";
+				}
+				
+			}
+			
+		} catch (SQLException | IOException e) {
+			e.printStackTrace();
+		}
+		
+		return "failure";
 	}
 
 }
