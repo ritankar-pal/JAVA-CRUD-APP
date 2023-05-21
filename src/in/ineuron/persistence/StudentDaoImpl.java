@@ -104,11 +104,79 @@ public class StudentDaoImpl implements IStudentDao {
 	
 	
 
-	@Override
-	public String updateStudent(Integer sid, String sname, Integer sage, String saddress) {
-		return null;
-	}
+//	@Override
+//	public String updateStudent(Integer sid, String sname, Integer sage, String saddress) {
+//		
+//		try {
+//			connection = JdbcUtil.getJdbcConnection(); 
+//			String sqlUpdateQuery = "update student set name = ?, age = ?, address = ? where id = ?";
+//			
+//			if(connection != null) {
+//				pstm = connection.prepareStatement(sqlUpdateQuery);
+//			}
+//			
+//			
+//			if(pstm != null) {
+//				pstm.setInt(4, sid);
+//				pstm.setString(1, sname);
+//				pstm.setInt(2, sage);
+//				pstm.setString(3, saddress);
+//			}
+//			
+//			if(pstm != null) {
+//				int rowAffected = pstm.executeUpdate();
+//				
+//				if(rowAffected == 1) {
+//					return "success";
+//				}
+//				
+//			}
+//			
+//			
+//		}catch (SQLException | IOException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		return "failure";
+//	}
 	
+	
+	@Override
+	public String updateStudent(Student student){
+		
+		try {
+			connection = JdbcUtil.getJdbcConnection();
+			String sqlUpdateQuery = "update student set name=?, age=?, address=? where id=?";
+			
+			
+			if(connection != null) {
+				pstm = connection.prepareStatement(sqlUpdateQuery);
+			}
+			
+			if(pstm != null) {
+				
+				//setting the values::
+				pstm.setString(1, student.getSname());
+				pstm.setInt(2, student.getSage());
+				pstm.setString(3, student.getSaddress());
+				pstm.setInt(4, student.getSid());
+				
+				//Executing the query::
+				int rowAffected = pstm.executeUpdate();
+				
+				if(rowAffected == 1) {
+					return "Success";
+				}
+				
+			}
+			
+		} catch (SQLException | IOException e) {
+			e.printStackTrace();
+			
+		}
+		
+		return "failure";
+	}
 	
 	
 

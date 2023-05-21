@@ -1,27 +1,37 @@
 package in.ineuron.util;
-import java.io.FileInputStream;
+//import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.*;
 import java.util.Properties;
+
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 
 
 public class JdbcUtil {
 		
 	public static Connection getJdbcConnection() throws SQLException, IOException{
 		
-		FileInputStream fis = new FileInputStream("src\\application.properties"); 
-		Properties properties = new Properties();
-		properties.load(fis);
+//		FileInputStream fis = new FileInputStream("src\\application.properties"); 
+//		Properties properties = new Properties();
+//		properties.load(fis);
+//		
+//		
+//		String url = properties.getProperty("url");
+//		String username = properties.getProperty("username");
+//		String password = properties.getProperty("password");
+//		
+//		Connection connection = DriverManager.getConnection(url, username, password);
+//		System.out.println("Connection Established...");
 		
 		
-		String url = properties.getProperty("url");
-		String username = properties.getProperty("username");
-		String password = properties.getProperty("password");
+		//using HikariCp::
+		String configFile = "src\\application.properties";
+		HikariConfig config = new HikariConfig(configFile);
 		
-		Connection connection = DriverManager.getConnection(url, username, password);
-		System.out.println("Connection Established...");
+		HikariDataSource dataSource = new HikariDataSource(config);
 		
-		return connection;
+		return dataSource.getConnection();
 	}
 	
 	

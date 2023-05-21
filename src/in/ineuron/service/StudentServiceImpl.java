@@ -11,6 +11,8 @@ public class StudentServiceImpl implements IStudentService {
 
 	IStudentDao studentDao = null;
 	
+	
+	
 	@Override
 	public String addStudent(String sname, Integer sage, String saddress) {
 		
@@ -34,9 +36,24 @@ public class StudentServiceImpl implements IStudentService {
 
 	
 	
+//	@Override
+//	public String updateStudent(Integer sid, String sname, Integer sage, String saddress) {
+//		
+//		studentDao = StudentDaoFactory.getStudentDao();
+//		
+//		if(studentDao != null) {
+//			
+//			return studentDao.updateStudent(sid, sname, sage, saddress);
+//		}
+//		else 
+//			return "failure";
+//	}
+	
+	
 	@Override
-	public String updateStudent(Integer sid, String sname, Integer sage, String saddress) {
-		return null;
+	public String updateStudent(Student student) {
+		studentDao = StudentDaoFactory.getStudentDao();
+		return studentDao.updateStudent(student);
 	}
 	
 	
